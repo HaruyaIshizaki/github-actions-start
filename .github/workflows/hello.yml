@@ -1,0 +1,12 @@
+name: learn-github-actions                                      # ワークフローの名前
+run-name: ${{ github.actor }} is learning GitHub Actions        # 実行時の名前
+on: [push]                                                      # トリガー
+jobs:
+  hello-world:                                                  # ジョブの名前
+    runs-on: ubuntu-latest                                      # ジョブの実行環境（ランナー
+    steps:                                                      # ジョブのステップ
+      - name: Checkout                                          # ステップの名前
+        uses: actions/checkout@v4                               # ステップの実行
+      - name: Hello world                                       # ステップの名前
+        run: echo "Hello, world!"                               # ステップの実行
+
