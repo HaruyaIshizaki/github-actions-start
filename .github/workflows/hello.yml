@@ -3,10 +3,10 @@ run-name: ${{ github.actor }} is learning GitHub Actions        # 実行時の�
 on: [push]                                                      # トリガー
 jobs:
   hello-world:                                                  # ジョブの名前
-    runs-on: ubuntu-latest                                      # ジョブの実行環境（ランナー
+    runs-on: ubuntu-latest                                      # ジョブの実行環境（ランナー）
     steps:                                                      # ジョブのステップ
       - name: Checkout                                          # ステップの名前
-        uses: actions/checkout@v4                               # ステップの実行
+        uses: actions/checkout@v4                               # ステップの実行（アクション）
       - name: Hello world                                       # ステップの名前
-        run: echo "Hello, world!"                               # ステップの実行
+        run: echo "Hello, world!"                               # ステップの実行（シェルコマンド）
 
