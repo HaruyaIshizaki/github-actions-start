@@ -1,8 +1,8 @@
 name: Deploy and Notify
 
-on:
-  push:
-    branches: [main, develop]
+on: [workflow_dispatch]
+  # push:
+  #   branches: [production, develop]
 
 jobs:
   health-check:
