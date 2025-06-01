@@ -1,15 +1,31 @@
-name: Notify Demo
-run-name: ${{ github.actor }} is Pushed
+name: Deploy and Notify
 
-on: [workflow_dispatch]
+on:
+  push:
+    branches: [main, develop]
 
 jobs:
-  run:
+  health-check:
     runs-on: ubuntu-latest
-    env:
-      BRANCH: main
     steps:
-      - name: echo "${{ env.BRANCH }}"
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ env.BRANCH }}
+      - name: Set API Endpoint by Branch
+        run: |
+          if [[ "${GITHUB_REF##*/}" == "production" ]]; then
+            echo "ENDPOINT=${{ secrets.API_URL_PROD }}" >> $GITHUB_ENV
+          else
+            echo "ENDPOINT=${{ secrets.API_URL_DEV }}" >> $GITHUB_ENV
+          fi
+
+      - name: API Health Check
+        run: curl --fail $ENDPOINT/health
+
+  slack-notify:
+    needs: health-check
+    if: endsWith(github.ref, 'develop')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify Slack
+        run: |
+          curl -X POST -H 'Content-type: application/json' \
+            --data '{"text":"✅ 開発環境にデプロイされました"}' \
+            ${{ secrets.SLACK_WEBHOOK_URL }}
