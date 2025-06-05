@@ -10,6 +10,8 @@ GitHub Actions は、GitHub 上で CI/CD を実現するためのツールです
   - ワークフローの基本構造
   - 主要な要素の説明
   - 重要なアクションの解説
+- [CIに単体テストを組み込む](docs/unit-test_workflows.md)
+  - Go言語での単体テスト実装
 
 ## 3. このガイドについて
 
